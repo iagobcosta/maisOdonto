@@ -45,7 +45,7 @@ public class TarefaBean implements Serializable {
 	 */
 	public void salvarNovaTarefa() {
 		try {
-			if (isTarefaVazia()) {
+			if (!isTarefaVazia()) {
 				tarefaModel.setUsuarioModel(usuarioBean.getUsuarioSession());
 				tarefaRepository.salvarNovaTarefa(tarefaModel);
 				getTarefas().add(tarefaModel);
@@ -53,7 +53,17 @@ public class TarefaBean implements Serializable {
 				Uteis.MensagemInfo("Registro cadastrado com sucesso");
 				tarefaModel = new TarefaModel();
 			} else {
+				if (tarefaModel.getTitulo().isEmpty()) {
+					Uteis.MensagemErro("O campo titulo deve ser preenchido!");
+				}
+				if (tarefaModel.getDescricao().isEmpty()) {
+					Uteis.MensagemErro("O campo descrição deve ser preenchido!");
+				}
+				if (tarefaModel.getPrioridade().isEmpty()) {
+					Uteis.MensagemErro("O campo prioridade deve ser preenchido!");
+				}
 				Uteis.MensagemErro("Impossível cadastrar a tarefa!");
+
 			}
 		} catch (Exception e) {
 			Uteis.MensagemErro("Impossível cadastrar a tarefa!");
