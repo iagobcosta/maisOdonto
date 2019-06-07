@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+ 
+    <h:form id="form">
+ 
+       <h:panelGrid id="panelGrid" columns="2" cellpadding="10">
+
+
+			<p:outputLabel value="Titulo" for="inputText-titulo" />
+			<p:inputText id="inputText-titulo" style="width:300px"
+						maxlength="70" value="#{tarefaBean.tarefaModel.titulo}" />
+
+
+
+					<p:outputLabel value="Descrição" for="inputText-descricao" />
+					<p:inputText id="inputText-descricao" style="width:300px"
+						maxlength="80" value="#{tarefaBean.tarefaModel.descricao}" />
+
+
+					<p:outputLabel for="selectOneRadio-prioridade" value="Prioridade" />
+					<p:selectOneRadio id="selectOneRadio-prioridade"
+						value="#{tarefaBean.tarefaModel.prioridade}">
+
+						<f:selectItem itemLabel="Baixa" itemValue="B" />
+						<f:selectItem itemLabel="Média" itemValue="M" />
+						<f:selectItem itemLabel="Alta" itemValue="A" />
+					</p:selectOneRadio>
+
+
+
+					<h:commandButton value="Salvar" id="command-salvar"
+						icon="ui-icon-gear" action="#{tarefaBean.editarTarefa}"
+						update="form-cadastro">
+					</h:commandButton>
+					
+					<h:commandButton value="Cancelar" id="command-cancelar"
+						icon="ui-icon-gear" 
+						oncomplete="PF('dialog-modal-editar').hide();"
+						update="form">
+					</h:commandButton>
+
+ 
+        <p:spacer/>
+	
+ 
+     </h:panelGrid>                  
+ 
+    </h:form>
+ 
+</ui:composition>

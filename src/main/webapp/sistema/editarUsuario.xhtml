@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="formAlterar" prependId="false">
+
+		<p:growl id="growl-message" showDetail="true" life="3000" />
+
+		<h:panelGrid id="panelGrid" columns="2" cellpadding="10">
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<p:outputLabel value="Login" for="input-login" />
+				<p:inputText id="input-login" style="width:300px" maxlength="70"
+					value="#{usuarioBean.usuarioModel.login}" />
+
+				<p:outputLabel value="Senha" for="input-usuario" />
+				<p:inputText id="input-usuario" style="width:300px" maxlength="70"
+					value="#{usuarioBean.usuarioModel.usuario}" />
+
+
+				<p:outputLabel value="Senha Atual" for="inputText-senha-atual" />
+				<p:password id="inputText-senha-atual"
+					value="#{usuarioBean.senhaAtualDigitado}" style="width:100px"
+					maxlength="10" />
+
+
+				<p:outputLabel value="Nova Senha" for="inputText-senha" />
+				<p:password id="inputText-senha" style="width:100px" maxlength="10"
+					value="#{usuarioBean.usuarioModel.senha}" />
+
+				<p:commandButton value="Sair" id="commandButton-sair"
+					icon="ui-icon-extlink"
+					oncomplete="PF('dialog-modal-editar').hide();" />
+
+				<p:commandButton value="Alterar" id="commandButton-alterar"
+					onclick="convert_MD5('inputText-senha'); convert_MD5('inputText-senha-atual');"
+					icon="ui-icon-gear" action="#{usuarioBean.trocarSenha}"
+					update="formAlterar" />
+
+			</h:panelGrid>
+
+
+
+		</h:panelGrid>
+
+		<h:outputScript library="js" name="converterMd5.js" />
+	</h:form>
+
+
+
+
+</ui:composition>

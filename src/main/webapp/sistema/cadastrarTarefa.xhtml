@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<h:outputStylesheet library="css" name="default.css" />
+
+</h:head>
+
+<ui:composition template="/template/layoutBase.xhtml">
+
+
+	<ui:define name="content">
+
+		<p:dialog header="Editar Tarefa" id="dialog-modal-editar"
+			widgetVar="dialog-modal-editar" modal="true" height="274px"
+			width="659px">
+
+			<ui:include src="/sistema/editarTarefa.xhtml" />
+
+
+		</p:dialog>
+
+		<p:growl id="growl-mensagem" showDetail="true" life="3000" />
+
+
+
+		<h:form id="form-cadastro">
+			<p:outputLabel value="Cadastrar Tarefa" />
+			<p:fieldset>
+				<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
+
+					<p:outputLabel value="Titulo" for="inputText-titulo" />
+					<p:inputText id="inputText-titulo" style="width:300px"
+						maxlength="70" value="#{tarefaBean.tarefaModel.titulo}" />
+
+
+
+					<p:outputLabel value="Descrição" for="inputText-descricao" />
+					<p:inputText id="inputText-descricao" style="width:300px"
+						maxlength="80" value="#{tarefaBean.tarefaModel.descricao}" />
+
+
+					<p:outputLabel for="selectOneRadio-prioridade" value="Prioridade" />
+					<p:selectOneRadio id="selectOneRadio-prioridade"
+						value="#{tarefaBean.tarefaModel.prioridade}">
+
+						<f:selectItem itemLabel="Baixa" itemValue="B" />
+						<f:selectItem itemLabel="Média" itemValue="M" />
+						<f:selectItem itemLabel="Alta" itemValue="A" />
+					</p:selectOneRadio>
+
+
+
+					<h:commandButton value="Salvar" id="commandButton-salvar"
+						icon="ui-icon-gear" action="#{tarefaBean.salvarNovaTarefa}"
+						update="form-cadastro">
+					</h:commandButton>
+
+				</h:panelGrid>
+			</p:fieldset>
+			<p:spacer />
+			<h:panelGroup id="pnlTabelaTarefa" layout="block">
+				<p:dataTable id="dataTable-tarefas" var="tarefa"
+					value="#{tarefaBean.tarefas}" rows="5" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+
+
+					<p:column headerText="Titulo" style="width:200px;">
+						<h:outputText value="#{tarefa.titulo}" />
+					</p:column>
+
+					<p:column headerText="Data de Criação" style="width:200px;">
+						<h:outputText value="#{tarefa.dataCriacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Ação" style="width:88px;">
+						<p:commandButton icon="ui-icon-pencil" ajax="true"
+							actionListener="#{tarefaBean.editar(tarefa)}"
+							title="Alterar tarefa" id="btnEditar"
+							oncomplete="PF('dialog-modal-editar').show();"
+							update="dialog-modal-editar" >
+						</p:commandButton>
+
+						<p:commandButton id="btnExcluir" icon="ui-icon-trash"
+							actionListener="#{tarefaBean.excluirTarefa(tarefa)}"
+							title="Excluir"
+							onclick="return confirm('Deseja realmente excluir a tarefa?')">
+						</p:commandButton>
+
+					</p:column>
+
+				</p:dataTable>
+
+			</h:panelGroup>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+
+</html>

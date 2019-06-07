@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<h:outputStylesheet library="css" name="default.css" />
+
+</h:head>
+<ui:composition template="/template/layoutBase.xhtml">
+
+	<ui:define name="content">
+
+		<p:growl id="growl-mensagem" autoUpdate="true" showDetail="true"
+			life="3000" />
+
+		<p:dialog header="Editar usuário" id="dialog-modal-editar"
+			widgetVar="dialog-modal-editar" modal="true" height="300px"
+			width="600px">
+
+			<ui:include src="/sistema/editarUsuario.xhtml" />
+
+
+		</p:dialog>
+
+		<h:form id="form-cadastro" prependId="false">
+			<p:outputLabel value="Cadastrar Usuario" />
+			<p:fieldset>
+
+				<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
+
+					Login
+					<p:inputText id="inputText-login" style="width:300px"
+						maxlength="70" value="#{usuarioBean.usuarioModel.login}" />
+
+					Usuario
+					<p:inputText id="inputText-usuario" style="width:300px"
+						maxlength="70" value="#{usuarioBean.usuarioModel.usuario}" />
+
+
+
+
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha" style="width:100px" maxlength="10"
+						value="#{usuarioBean.usuarioModel.senha}" />
+
+
+
+					<p:commandButton value="Salvar" id="commandButton-salvar"
+						onclick="convert_MD5('senha');" icon="ui-icon-gear"
+						action="#{usuarioBean.salvarUsuario}"
+						update="form-cadastro panelGrid-campos-form">
+					</p:commandButton>
+				</h:panelGrid>
+			</p:fieldset>
+
+			<p:spacer />
+			<h:panelGroup id="pnlTabelaTarefa" layout="block">
+				<p:dataTable id="dataTable-registros" var="usuario"
+					value="#{usuarioBean.usuarios}" rows="10" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<p:column headerText="Nome" style="width:200px;">
+						<h:outputText value="#{usuario.usuario}" />
+					</p:column>
+
+					<p:column headerText="Login" style="width:200px;">
+						<h:outputText value="#{usuario.login}" />
+					</p:column>
+
+					<p:column headerText="Ação" style="width:88px;">
+
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{usuarioBean.editar(usuario)}"
+							title="Alterar usuário" id="btnEditar"
+							oncomplete="PF('dialog-modal-editar').show();"
+							update="dialog-modal-editar">
+						</p:commandButton>
+
+						<p:commandButton id="btnExcluir" icon="ui-icon-trash"
+							actionListener="#{usuarioBean.excluirUsuario(usuario)}"
+							title="Excluir"
+							onclick="return confirm('Deseja realmente excluir o usuário?')">
+						</p:commandButton>
+
+					</p:column>
+
+
+				</p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+
+		<h:outputScript library="js" name="converterMd5.js" />
+
+	</ui:define>
+
+</ui:composition>
+</html>
