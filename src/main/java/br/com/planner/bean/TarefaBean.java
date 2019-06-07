@@ -118,6 +118,10 @@ public class TarefaBean implements Serializable {
 		this.tarefaModel = tarefaModel;
 
 	}
+	
+	public void cancelar() {
+		tarefaModel = new TarefaModel();
+	}
 
 	public boolean isTarefaVazia() {
 		return (tarefaModel.getTitulo().isEmpty() || tarefaModel.getDescricao().isEmpty()

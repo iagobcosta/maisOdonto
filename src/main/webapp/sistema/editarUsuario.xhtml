@@ -30,8 +30,9 @@
 				<p:password id="inputText-senha" style="width:100px" maxlength="10"
 					value="#{usuarioBean.usuarioModel.senha}" />
 
-				<p:commandButton value="Sair" id="commandButton-sair"
+				<p:commandButton value="Cancelar" id="commandButton-sair"
 					icon="ui-icon-extlink"
+					action="#{usuarioBean.cancelar}"
 					oncomplete="PF('dialog-modal-editar').hide();" />
 
 				<p:commandButton value="Alterar" id="commandButton-alterar"
