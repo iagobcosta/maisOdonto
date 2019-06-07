@@ -181,6 +181,10 @@ public class UsuarioBean implements Serializable {
 			Uteis.MensagemErro(e.toString());
 		}
 	}
+	
+	public void cancelar() {
+		usuarioModel = new UsuarioModel();
+	}
 
 	public void editar(UsuarioModel usuarioModel) {
 		senhaAtual = usuarioModel.getSenha().trim();
