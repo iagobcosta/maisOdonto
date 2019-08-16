@@ -15,7 +15,7 @@
 				<p:inputText id="input-login" style="width:300px" maxlength="70"
 					value="#{usuarioBean.usuarioModel.login}" />
 
-				<p:outputLabel value="Senha" for="input-usuario" />
+				<p:outputLabel value="Usuário" for="input-usuario" />
 				<p:inputText id="input-usuario" style="width:300px" maxlength="70"
 					value="#{usuarioBean.usuarioModel.usuario}" />
 
@@ -38,7 +38,8 @@
 				<p:commandButton value="Alterar" id="commandButton-alterar"
 					onclick="convert_MD5('inputText-senha'); convert_MD5('inputText-senha-atual');"
 					icon="ui-icon-gear" action="#{usuarioBean.trocarSenha}"
-					update="formAlterar" />
+					update="formAlterar"
+					oncomplete="PF('dialog-modal-editar').hide();" />
 
 			</h:panelGrid>
 
