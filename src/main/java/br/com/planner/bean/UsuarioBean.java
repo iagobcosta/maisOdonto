@@ -87,11 +87,13 @@ public class UsuarioBean implements Serializable {
 
 	public void excluirUsuario(UsuarioModel usuarioModel) {
 		try {
+			this.usuarioModel = usuarioModel;
 			if (!isUsuarioVazio()) {
 				usuarioRepository.excluirUsuario(usuarioModel.getId());
 				usuarios.remove(usuarioModel);
-				init();
+				
 				Uteis.MensagemInfo("Usuario excluído com sucesso !");
+				this.usuarioModel = new UsuarioModel();
 			} else {
 				Uteis.MensagemInfo("Não foi possivel excluir o usuário !");
 			}
