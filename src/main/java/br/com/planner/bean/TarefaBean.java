@@ -90,10 +90,10 @@ public class TarefaBean implements Serializable {
 	public void editarTarefa() {
 		try {
 			if (!isTarefaVazia()) {
+				tarefaModel.setUsuarioModel(usuarioBean.getUsuarioSession());
 				tarefaRepository.editarTarefa(tarefaModel);
-				tarefas.add(tarefaModel);
 				init();
-				Uteis.MensagemInfo("Tarefa excluída com sucesso!");
+				Uteis.MensagemInfo("Tarefa editada com sucesso!");
 			} else {
 				if (tarefaModel.getTitulo().isEmpty()) {
 					Uteis.MensagemErro("O título deve ser preenchido!");
