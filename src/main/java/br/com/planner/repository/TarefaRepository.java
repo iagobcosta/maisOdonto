@@ -112,6 +112,8 @@ public class TarefaRepository implements Serializable {
  
 		entityManager.merge(tarefaEntity);
 	}
+	
+	
 
 	private TarefaEntity obterIdTarefa(int id) {
 
