@@ -6,19 +6,33 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-<h:form>
+<h:head>
+	
+	
+</h:head>
 
+<h:form id="form-menu" >
 	<p:menubar>
-		<p:menuitem value="Home" icon="ui-icon-home" url="home.xhtml"/>		
-		<p:menuitem value="Tarefas" icon="ui-icon-note" url="cadastrarTarefa.xhtml"/>
+		<p:submenu label="Cadastro" icon="ui-icon-home">
+			<p:menuitem value="Usuário" icon="ui-icon-person" url="home.xhtml" />
+			<p:menuitem value="Tarefas" icon="ui-icon-note"	url="cadastrarTarefa.xhtml" />
+			<p:menuitem value="Sprint" icon="ui-icon-note"	url="cadastrarSprint.xhtml" />
+		</p:submenu>
 		
+		
+
 		<f:facet name="options">
-			<p:outputLabel value="#{usuarioBean.usuarioLogado}       " />
-			<p:commandButton value="Logout" icon="ui-icon-extlink" action="#{usuarioBean.logout}" />
+			<p:outputLabel value="#{usuarioBean.usuarioLogado}" />
+			<p:spacer></p:spacer>
+			<p:commandButton value="Logout" icon="ui-icon-extlink"
+				action="#{usuarioBean.logout}" />
 		</f:facet>
-		
+
 	</p:menubar>
 
-</h:form>
+</h:form> 
+
+
+
 
 </html>

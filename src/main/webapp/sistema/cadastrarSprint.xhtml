@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<link type="text/css" rel="stylesheet"	href="bootstrap/css/bootstrap.min.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" />
+</h:head>
+	
+<body>
+	<ui:include src="/sistema/menu.xhtml" />
+
+
+		<p:growl id="growl-mensagem" showDetail="true" life="3000" />
+
+		<h:form id="form-cadastro" class="container">
+
+			<label class="display-5" >Cadastrar Sprint</label>
+				<p:fieldset>
+				<div class="form-group" id="formAdiconarSprint">
+					<div class="form-group col-md-4">
+						<label for="input-nome">Nome da Sprint</label>
+						<h:inputText id="input-nome" class="form-control" maxlength="70"
+						value="#{sprintBean.sprintModel.nome}" />
+					</div>
+					
+					<div class="form-group col-md-6">
+						<label for="input-descricao">Descrição da Sprint</label>
+						<h:inputText id="input-descricao" class="form-control" maxlength="170"
+						value="#{sprintBean.sprintModel.descricao}" />
+					</div>
+					
+					<div class="form-group col-md-2">
+						<label for="dataInicio">Data Inicio </label>
+						
+						<p:calendar id="dataInicio"
+						value="#{sprintBean.sprintModel.dataInicio}" />
+					</div>
+					
+					<div class="form-group col-md-2">
+						<label for="dataFim">Data Fim   </label>
+						<p:calendar id="dataFim" value="#{sprintBean.sprintModel.dataFim}" />					
+					</div>
+					
+				</div>
+				</p:fieldset>
+				<p:separator/>
+				<div class="form-group">
+						<h:commandButton value="Salvar" 
+						id="commandButton-salvar" 
+						class="btn btn-outline-success"						
+						action="#{sprintBean.cadastrarSprint}"
+						update="form-cadastro">
+					</h:commandButton>
+					
+						<h:commandButton value="Cancelar" 
+						id="commandButton-concelar" 
+						class="btn btn-outline-danger"					
+						action="#{sprintBean.cancelar}"
+						update="form-cadastro">
+					</h:commandButton>
+					</div>
+
+			
+			<p:spacer />			
+			<h:panelGroup id="pnlTabelaSprint" >
+				<p:dataTable id="dataTable-sprints" var="sprint" class="table"
+					value="#{sprintBean.sprints}" 
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+
+
+					<p:column headerText="Nome da Sprint" style="width:200px;">
+						<h:outputText value="#{sprint.nome}" />
+					</p:column>
+					
+					<p:column headerText="Descrição da Sprint" style="width:200px;">
+						<h:outputText value="#{sprint.descricao}" />
+					</p:column>
+
+					<p:column headerText="Data de Inicio" style="width:200px;">
+						<h:outputText value="#{sprint.dataInicio}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Data de Fim" style="width:200px;">
+						<h:outputText value="#{sprint.dataFim}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					
+						<p:column headerText="Ação" style="width:240px">							
+							  <h:commandButton id="btnExcluir" class="btn btn-secondary btn-sm" value="Excluir"
+								actionListener="#{sprintBean.excluirSprint(sprint)}" 
+								title="Excluir"						
+								onclick="return confirm('Deseja realmente excluir a tarefa?')">
+							</h:commandButton>
+							
+							 <h:commandButton id="btnEditar" class="btn btn-secondary btn-sm" value="Editar"
+								actionListener="#{sprintBean.excluirSprint(sprint)}" 
+								title="Editar">
+							</h:commandButton>	
+							<h:commandButton class="btn btn-secondary btn-sm"
+							action="#{sprintBean.visualizarSprint}" scope="row"
+							title="Visualizar Sprint" value="Visualizar">
+						</h:commandButton>							
+						</p:column>
+					
+
+				</p:dataTable>
+				</h:panelGroup>
+				
+				<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+		</h:form>
+</body>
+
+</html>

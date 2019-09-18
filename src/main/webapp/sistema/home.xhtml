@@ -9,6 +9,21 @@
 <h:head>
 
 	<h:outputStylesheet library="css" name="default.css" />
+	<style type="text/css">
+    .ui-stack {
+        z-index: 1000;
+    }
+</style>
+ 
+Stack is displayed at bottom right corner of the page. Clicking the basket icon toggles the items.
+ 
+<p:stack icon="/resources/demo/images/dock/stack.png" expanded="true">
+    <p:menuitem value="Home" icon="/resources/demo/images/dock/home.png" url="#"/>
+    <p:menuitem value="Music" icon="/resources/demo/images/dock/music.png" url="#"/>
+    <p:menuitem value="Video" icon="/resources/demo/images/dock/video.png" url="#"/>
+    <p:menuitem value="Email" icon="/resources/demo/images/dock/email.png" url="#"/>
+    <p:menuitem value="Portfolio" icon="/resources/demo/images/dock/portfolio.png" url="#"/>
+</p:stack>
 
 </h:head>
 <ui:composition template="/template/layoutBase.xhtml">
@@ -27,7 +42,7 @@
 
 		</p:dialog>
 
-		<h:form id="form-cadastro" prependId="false">
+		<h:form id="form-cadastro" prependId="false" >
 			<p:outputLabel value="Cadastrar Usuario" />
 			<p:fieldset>
 
@@ -50,7 +65,7 @@
 
 
 
-					<p:commandButton value="Salvar" id="commandButton-salvar"
+					<p:commandButton value="Salvar" id="commandButton-salvar" 
 						onclick="convert_MD5('senha');" icon="ui-icon-gear"
 						action="#{usuarioBean.salvarUsuario}"
 						update="form-cadastro panelGrid-campos-form">
@@ -59,7 +74,7 @@
 			</p:fieldset>
 
 			<p:spacer />
-			<h:panelGroup id="pnlTabelaTarefa" layout="block">
+			<h:panelGroup id="pnlTabelaTarefa" layout="block" >
 				<p:dataTable id="dataTable-registros" var="usuario"
 					value="#{usuarioBean.usuarios}" rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -97,8 +112,9 @@
 		</h:form>
 
 		<h:outputScript library="js" name="converterMd5.js" />
-
+		
 	</ui:define>
 
 </ui:composition>
+
 </html>
