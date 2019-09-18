@@ -17,10 +17,15 @@ body {
 #form-cadastro{
   margin-left: 10%; 
   margin-right: 10%;
+  
 }
 #header {
-   padding:0px;
+   padding:5px;
+   
 }
+
+
+
 #body {
  
    padding:10px;
