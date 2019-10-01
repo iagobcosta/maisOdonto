@@ -32,9 +32,42 @@
 
 
 		<h:form id="form-cadastro">
+
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton type="button" value="New" icon="pi pi-file" />
+
+					<p:commandButton type="button" value="Open"
+						icon="pi pi-folder-open" />
+
+					<span class="ui-separator"> <span
+						class="ui-icon pi pi-ellipsis-v" />
+					</span>
+
+					<p:commandButton type="button" title="Save" icon="pi pi-save" />
+					<p:commandButton type="button" title="Delete" icon="pi pi-trash" />
+					<p:commandButton type="button" title="Print" icon="pi pi-print" />
+				</f:facet>
+
+				<f:facet name="right">
+					<p:menuButton value="Options">
+						<p:menuitem value="Save" action="#{toolbarView.save}"
+							update="growl-mensagem" icon="pi pi-save" />
+						<p:menuitem value="Update" action="#{toolbarView.update}"
+							update="growl-mensagem" icon="pi pi-refresh" />
+						<p:menuitem value="Delete" action="#{toolbarView.delete}"
+							ajax="false" icon="pi pi-times" />
+						<p:menuitem value="Homepage" url="http://www.primefaces.org"
+							icon="pi pi-home" />
+					</p:menuButton>
+				</f:facet>
+
+			</p:toolbar>
+
 			<p:outputLabel value="Cadastrar Tarefa" />
 			<p:fieldset>
-				<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10">
+				<h:panelGrid id="panelGrid-campos-form" columns="2" cellpadding="10"
+					style="margin-bottom:10px">
 
 					<p:outputLabel value="Titulo" for="inputText-titulo" />
 					<p:inputText id="inputText-titulo" style="width:300px"
@@ -47,7 +80,7 @@
 						maxlength="80" value="#{tarefaBean.tarefaModel.descricao}" />
 
 
-					<p:outputLabel for="selectOneRadio-prioridade" value="Prioridade" />
+					<h:outputText value="Prioridade" />
 					<p:selectOneRadio id="selectOneRadio-prioridade"
 						value="#{tarefaBean.tarefaModel.prioridade}">
 
@@ -59,7 +92,7 @@
 
 
 					<h:commandButton value="Salvar" id="commandButton-salvar"
-						icon="ui-icon-gear" action="#{tarefaBean.salvarNovaTarefa}"
+						icon="pi pi-check" action="#{tarefaBean.salvarNovaTarefa}"
 						update="form-cadastro">
 					</h:commandButton>
 
@@ -85,12 +118,12 @@
 					</p:column>
 
 					<p:column headerText="Ação" style="width:88px;">
-					
+
 						<p:commandButton icon="ui-icon-pencil" ajax="true"
 							actionListener="#{tarefaBean.editar(tarefa)}"
 							title="Alterar tarefa" id="btnEditar"
 							oncomplete="PF('dialog-modal-editar').show();"
-							update="dialog-modal-editar" >
+							update="dialog-modal-editar">
 						</p:commandButton>
 
 						<p:commandButton id="btnExcluir" icon="ui-icon-trash"
@@ -100,8 +133,14 @@
 						</p:commandButton>
 
 					</p:column>
+					
 
 				</p:dataTable>
+				<p:separator style="" />
+				<p:panel id="hpnl" header="Horizontal Only">
+					<h:outputText value="I can only be dragged horizontally." />
+				</p:panel>
+				<p:draggable for="hpnl" axis="y" />
 
 			</h:panelGroup>
 		</h:form>
